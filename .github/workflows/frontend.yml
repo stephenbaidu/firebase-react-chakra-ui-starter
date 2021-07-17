@@ -1,0 +1,68 @@
+name: Deploy Frontend to Firebase
+on:
+  push:
+    branches:
+      - master
+
+env:
+  REACT_APP_FIREBASE_APIKEY: ${{ secrets.REACT_APP_FIREBASE_APIKEY }}
+  REACT_APP_FIREBASE_AUTHDOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTHDOMAIN }}
+  REACT_APP_FIREBASE_DATABASEURL: ${{ secrets.REACT_APP_FIREBASE_DATABASEURL }}
+  REACT_APP_FIREBASE_PROJECTID: ${{ secrets.REACT_APP_FIREBASE_PROJECTID }}
+  REACT_APP_FIREBASE_STORAGEBUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGEBUCKET }}
+  REACT_APP_FIREBASE_MESSAGINGSENDERID: ${{ secrets.REACT_APP_FIREBASE_MESSAGINGSENDERID }}
+  REACT_APP_FIREBASE_APPID: ${{ secrets.REACT_APP_FIREBASE_APPID }}
+  REACT_APP_FIREBASE_MEASUREMENTID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENTID }}
+
+jobs:
+  check:
+    name: Check changed files
+    outputs:
+      run_job: ${{ steps.check_files.outputs.run_job }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: check files
+        id: check_files
+        run: |
+          echo "=============== list changed files ==============="
+          git diff --name-only HEAD^ HEAD
+          
+          echo "========== check paths of changed files =========="
+          git diff --name-only HEAD^ HEAD > files.txt
+          while IFS= read -r file
+          do
+            echo $file
+            if [[ $file != "frontend/"* ]]; then
+              echo "This file is not under the directory 'frontend'."
+              echo "::set-output name=run_job::false"
+              break
+            else
+              echo "::set-output name=run_job::true"
+            fi
+          done < files.txt
+
+  build_and_deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12.x'
+      - name: Install Dependencies
+        run: yarn --cwd ./frontend install
+      - name: Build app
+        run: yarn --cwd ./frontend run build
+      - name: Install firebase tools
+        run: npm install -g firebase-tools
+      - name: Deploy to Firebase
+        run: firebase deploy --only hosting --token "$FIREBASE_TOKEN"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
