@@ -1,4 +1,4 @@
-name: Deploy Functions to Firebase
+name: Deploy Cloud Functions (functions) to Firebase
 on:
   push:
     branches:
