@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: check files
+      - name: Check files
         id: check_files
         run: |
           echo "=============== list changed files ==============="
@@ -27,18 +27,20 @@ jobs:
           while IFS= read -r file
           do
             echo $file
-            if [[ $file != "functions/"* ]]; then
-              echo "This file is not under the directory 'functions'."
-              echo "::set-output name=run_job::false"
+            if [[ $file = functions/* ]]; then
+              echo "This modified file is under the 'functions' directory."
+              echo "::set-output name=run_job::true"
               break
             else
-              echo "::set-output name=run_job::true"
+              echo "::set-output name=run_job::false"
             fi
           done < files.txt
 
   build_and_deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    needs: check
+    if: needs.check.outputs.run_job == 'true'
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
