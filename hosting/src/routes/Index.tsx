@@ -1,7 +1,9 @@
 import React from 'react'
 import { Redirect, Route, Switch, useRoute } from 'wouter'
 import { useSession } from '../auth'
+import AuthPage from './auth/Index'
 import LoginPage from './login/Index'
+import SignupPage from './signup/Index'
 import Dashboard from './dashboard/Index'
 
 interface AuthenticatedRouteProps {
@@ -46,9 +48,10 @@ export const Routes = () => {
 
     return (
         <>
-            {!user && <Route path="/" component={LoginPage} />}
+            {!user && <Route path="/" component={AuthPage} />}
             <Switch>
                 <Route path="/login" component={LoginPage} />
+                <Route path="/signup" component={SignupPage} />
                 <AuthenticatedRoute path="/:rest*" component={AuthenticatedRoutes} />
             </Switch>
         </>

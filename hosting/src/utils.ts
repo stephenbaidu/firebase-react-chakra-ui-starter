@@ -1,0 +1,1 @@
+export const AppName = "Firebase React Chakra UI Starter"

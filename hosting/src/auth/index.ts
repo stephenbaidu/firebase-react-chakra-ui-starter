@@ -1,6 +1,7 @@
 export { authContext } from './authContext'
 export { useSession } from './useSession'
 export { loginWithGoogle } from './loginWithGoogle'
+export { loginAnonymously } from './loginAnonymously'
 export { loginWithEmail } from './loginWithEmail'
 export { createUserWithEmail } from './createUserWithEmail'
 export { signOut } from './signOut'

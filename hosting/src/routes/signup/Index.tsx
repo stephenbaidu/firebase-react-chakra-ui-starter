@@ -1,17 +1,17 @@
 import { Box } from '@chakra-ui/react'
-import { loginAnonymously, loginWithEmail, loginWithGoogle } from '../../auth'
-import { BrandingPane, ColorModeSwitcher, FullPageBox, LoginPane } from '../../components'
 import { useLocation } from 'wouter'
+import { createUserWithEmail, loginAnonymously, loginWithGoogle } from '../../auth'
+import { BrandingPane, ColorModeSwitcher, FullPageBox, SignupPane } from '../../components'
 
 interface Props {
 
 }
 
-const LoginPage = (props: Props) => {
+const SignupPage = (props: Props) => {
     // eslint-disable-next-line
     const [_, setLocation] = useLocation()
 
-    const goToSignup = () => setLocation("/signup")
+    const goToLogin = () => setLocation("/login")
 
     return (
         <FullPageBox px={0} display={{ md: "flex" }}>
@@ -22,15 +22,15 @@ const LoginPage = (props: Props) => {
                 <BrandingPane />
             </Box>
             <Box px={4} width={{ base: "100%", md: "48em" }}>
-                <LoginPane
+                <SignupPane
                     onGoogleLogin={loginWithGoogle}
                     onAnonymousLogin={loginAnonymously}
-                    onEmailLogin={loginWithEmail}
-                    onSignupClicked={goToSignup}
+                    onEmailSignup={createUserWithEmail}
+                    onLoginClicked={goToLogin}
                 />
             </Box>
         </FullPageBox>
     )
 }
 
-export default LoginPage
+export default SignupPage

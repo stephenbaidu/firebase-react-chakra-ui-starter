@@ -1,15 +1,15 @@
 import { ReactNode } from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, BoxProps } from '@chakra-ui/react'
 import { useWindowDimensions } from '../hooks'
 
-interface Props {
+interface Props extends BoxProps {
     children: ReactNode
 }
 
-export const FullPageBox = ({ children }: Props) => {
+export const FullPageBox = ({ children, ...boxProps }: Props) => {
     const { height, width } = useWindowDimensions()
     return (
-        <Box height={`${height}px`} width={`${width}px`}>
+        <Box height={`${height}px`} width={`${width}px`} {...boxProps}>
             {children}
         </Box>
     )

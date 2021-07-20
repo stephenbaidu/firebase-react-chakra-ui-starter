@@ -3,6 +3,11 @@ import * as functions from "firebase-functions"
 const region = 'europe-west3';
 const options: functions.RuntimeOptions = { memory: '128MB', timeoutSeconds: 60 };
 
+export const authUserOnCreateFn =
+functions.region(region).runWith(options).auth.user().onCreate(async (user, context) => {
+    await (await import('./fn/auth/user_on_create_fn')).default(user, context)
+})
+
 export const httpHelloWorld =
 functions.region(region).runWith(options).https.onRequest(async (request, response) => {
     await (await import('./fn/http/hello_world')).default(request, response)
