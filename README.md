@@ -145,3 +145,5 @@ Here is the tree:
 ├── firestore.rules
 ├── README.md
 ```
+## Auth page
+<img width="285" alt="Screen Shot 2021-07-21 at 3 03 21 AM" src="https://user-images.githubusercontent.com/2970017/126471765-58cc11bc-33c1-424a-b580-ba539d183526.png">
