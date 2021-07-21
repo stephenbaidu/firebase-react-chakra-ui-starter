@@ -9,14 +9,15 @@ export default async (
     user: functions.auth.UserRecord,
     context: functions.EventContext
 ) => {
-    if (!user.email) return
+    // Uncomment to require email if anonymous login is not allowed
+    // if (!user.email) return
 
     await createUserRecord(user.uid, user.email, user.displayName)
 }
 
 const createUserRecord = async (
     userId: string,
-    email: string,
+    email?: string, // Make email optional to allow anonymous login
     displayName?: string
 ): Promise<ActionResult> => {
     const result: ActionResult = { success: false }
