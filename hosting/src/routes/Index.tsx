@@ -1,10 +1,11 @@
-import React from 'react'
 import { Redirect, Route, Switch, useRoute } from 'wouter'
 import { useSession } from '../auth'
 import AuthPage from './auth/Index'
 import LoginPage from './login/Index'
 import SignupPage from './signup/Index'
 import Dashboard from './dashboard/Index'
+import { Box } from '@chakra-ui/react'
+import { DefaultNavbar, Main } from '../components'
 
 interface AuthenticatedRouteProps {
     component: any
@@ -30,16 +31,19 @@ const AuthenticatedRoute = ({
     return <Component />
 }
 
-const AuthenticatedRoutes = () => {
+const DefaultLayout = () => {
     return (
-        <>
-            <Switch>
-                <Route path="/dashboard" component={Dashboard} />
-                <Route>
-                    <Dashboard />
-                </Route>
-            </Switch>
-        </>
+        <Main>
+            <DefaultNavbar />
+            <Box mt={100} mb={150}>
+                <Switch>
+                    <Route path="/" component={Dashboard} />
+                    <Route>
+                        <Dashboard />
+                    </Route>
+                </Switch>
+            </Box>
+        </Main>
     )
 }
 
@@ -52,7 +56,7 @@ export const Routes = () => {
             <Switch>
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" component={SignupPage} />
-                <AuthenticatedRoute path="/:rest*" component={AuthenticatedRoutes} />
+                <AuthenticatedRoute path="/:rest*" component={DefaultLayout} />
             </Switch>
         </>
     )
