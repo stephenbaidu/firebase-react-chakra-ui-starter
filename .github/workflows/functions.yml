@@ -53,6 +53,7 @@ jobs:
       - name: Install firebase tools
         run: npm install -g firebase-tools
       - name: Deploy to Firebase
-        run: firebase deploy --only functions --token "$FIREBASE_TOKEN" --force
+        run: firebase deploy --only functions --token "$FIREBASE_TOKEN" --project "$REACT_APP_FIREBASE_PROJECTID" --force
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          REACT_APP_FIREBASE_PROJECTID: ${{ secrets.REACT_APP_FIREBASE_PROJECTID }}
