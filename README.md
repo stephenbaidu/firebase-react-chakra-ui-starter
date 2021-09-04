@@ -1,5 +1,11 @@
 # Firebase React Chakra UI Starter
 A starter project for Firebase web.
+- React
+- Chakra UI
+- Github actions for deployment
+
+## Demo
+Visit https://react-chakra-ui-starter.web.app
 
 ## Installation
 Clone the repository
@@ -45,6 +51,7 @@ REACT_APP_FIREBASE_MESSAGINGSENDERID
 REACT_APP_FIREBASE_PROJECTID
 REACT_APP_FIREBASE_STORAGEBUCKET
 ```
+Set your firebase app id in `.firebaserc` by changing `react-chakra-ui-starter` to `<YOUR APP ID>`. Make a commit for this change.
 Finally, push to your remote repository
 ```bash
 git push origin master

@@ -52,7 +52,7 @@ jobs:
         run: npm install --prefix ./functions
       - name: Install firebase tools
         run: npm install -g firebase-tools
-      - name: Deploy to Firebase
+      - name: Build and deploy to Firebase
         run: firebase deploy --only functions --token "$FIREBASE_TOKEN" --force
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

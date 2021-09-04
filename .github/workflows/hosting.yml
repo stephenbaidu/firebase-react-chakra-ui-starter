@@ -60,11 +60,9 @@ jobs:
           node-version: '12.x'
       - name: Install Dependencies
         run: yarn --cwd ./hosting install
-      - name: Build app
-        run: yarn --cwd ./hosting run build
       - name: Install firebase tools
         run: npm install -g firebase-tools
-      - name: Deploy to Firebase
+      - name: Build and deploy to Firebase
         run: firebase deploy --only hosting --token "$FIREBASE_TOKEN"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

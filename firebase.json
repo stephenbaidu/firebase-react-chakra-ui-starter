@@ -10,6 +10,9 @@
     ]
   },
   "hosting": {
+    "predeploy": [
+      "yarn --cwd \"$RESOURCE_DIR\" build"
+    ],
     "public": "hosting/build",
     "ignore": [
       "firebase.json",
@@ -22,6 +25,9 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "storage": {
+    "rules": "storage.rules"
   },
   "emulators": {
     "auth": {
@@ -36,8 +42,17 @@
     "hosting": {
       "port": 5000
     },
+    "pubsub": {
+      "port": 8085
+    },
+    "storage": {
+      "port": 9199
+    },
     "ui": {
       "enabled": true
     }
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
   }
 }
