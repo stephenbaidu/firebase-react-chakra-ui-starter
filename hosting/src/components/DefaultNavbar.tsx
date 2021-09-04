@@ -15,7 +15,7 @@ export const DefaultNavbar = () => {
     return (
         <Navbar>
             <Flex align="center" ml={-3}>
-                <HeaderNavLink href="/" aria-label="InsureWise, Back to homepage">
+                <HeaderNavLink href="/" aria-label="Firebase React Chakra UI Starter, Back to homepage">
                     <Logo height={30} />
                 </HeaderNavLink>
             </Flex>
